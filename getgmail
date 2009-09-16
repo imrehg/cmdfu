@@ -1,0 +1,14 @@
+#!/bin/bash
+# Based on:
+# http://www.commandlinefu.com/commands/view/3386/
+
+if [ "$1" == "" ]
+then
+  echo "Enter your gmail username: "
+  read username
+else
+  username=$1
+fi
+curl -u $username --silent "https://mail.google.com/mail/feed/atom" |
+  perl -ne 'print "\t" if /<name>/; print "$2\n" if 
+  /<(title|name)>(.*)<\/\1>/;'
