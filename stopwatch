@@ -1,0 +1,6 @@
+#!/bin/bash
+# Based on comments for this fu:
+# http://www.commandlinefu.com/commands/view/1567/
+
+echo "Press any key for Lap, 's' for Stop. "
+shopt -s extglob;TIMEFORMAT=%E;total=0;nl=$'\n';key=go; while [[ $key != 's' ]]; do result=$( (time read -sn1; echo "$REPLY") 2>&1 ); result=${result/$nl/ }; key=${result#* }; lap=${result% *}; thou=${lap/.}; thou=${thou/#+(0)}; let total+=$thou; echo "Lap $lap"; done; echo "Total ${total:0:${#total} - 3}.${total: -3:3}"; unset TIMEFORMAT
